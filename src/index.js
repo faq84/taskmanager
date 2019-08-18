@@ -56,3 +56,13 @@ app.use(taskRouter)
 app.listen(port,()=>{
     console.log('App is running on Port: '+port)
 })
+
+// const pet = {
+//     name : 'Hal'
+// }
+
+// pet.toJSON = function(){
+//     console.log(this)
+//     return this
+// }
+// console.log(JSON.stringify(pet))
