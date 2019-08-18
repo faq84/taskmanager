@@ -52,7 +52,7 @@ router.post('/users/logout',auth ,async (req,res)=>{
   })
   // console.log(req.token)
   try{
-    req.user.tokens = req.user.tokens.filer((token)=>{
+    req.user.tokens = req.user.tokens.filter((token)=>{
       
       return token.token === req.token
     })
