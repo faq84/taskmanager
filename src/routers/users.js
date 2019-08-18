@@ -47,9 +47,9 @@ router.post('/users/login',async(req,res)=>{
 router.post('/users/logout',auth ,async (req,res)=>{
   // console.log(req.user.tokens)
 
-  req.user.tokens.filter((token)=>{
-    console.log(token.token)
-  })
+  // req.user.tokens.filter((token)=>{
+  //   console.log(token.token)
+  // })
   // console.log(req.token)
   try{
     req.user.tokens = req.user.tokens.filter((token)=>{
