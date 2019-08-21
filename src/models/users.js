@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const validator = require ('validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const Task = require('./tasks')
 
 //this process creates a middleware in between.
 //which helps us to perform multiple functions pre and post the function is called.
@@ -49,6 +50,8 @@ const userSchema = new mongoose.Schema({
             required: true
         }
     }]
+},{
+    timestamps:true
 })
 
 userSchema.virtual('task',{
@@ -96,6 +99,13 @@ userSchema.pre('save', async function(next){
     next()
 
 } )
+
+userSchema.pre('remove', async function(next){
+    const user = this;
+    await Task.deleteMany({author:user._id})
+    
+    next()
+})
 
 userSchema.methods.toJSON= function (){
     const user = this;
