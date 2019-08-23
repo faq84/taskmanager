@@ -67,17 +67,17 @@ app.listen(port,()=>{
 // }
 // console.log(JSON.stringify(pet))
 
-// const Task = require ('./models/tasks')
-// const User = require('./models/users')
+const Task = require ('./models/tasks')
+const User = require('./models/users')
 
-// const main = async ()=>{
-//     // const task = await Task.findById('5d598bcd788beb0e04a6fc36')
-//     // await task.populate('author').execPopulate()
-//     // console.log(task.author)
-//     const user = await User.findById('5d5af89e95437a20f0e07047')
-//     await user.populate('task').execPopulate()
-//     //console.log(user.task )
+const main = async ()=>{
+    // const task = await Task.findById('5d598bcd788beb0e04a6fc36')
+    // await task.populate('author').execPopulate()
+    // console.log(task.author)
+    const user = await User.findById('5d5af89e95437a20f0e07047')
+    await user.populate('task').execPopulate()
+    //console.log(user.task )
 
-// }
+}
 
-// main()
+main()
