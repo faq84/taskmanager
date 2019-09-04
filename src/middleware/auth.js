@@ -6,7 +6,7 @@ const auth  = async (req, res, next)=>{
     // next()
     try{
         const token = req.header('Authorization').replace('Bearer ', '')
-        const decoded = jwt.verify(token, 'thisismynewcourse')
+        const decoded = jwt.verify(token, process.env.JWT_TOKEN)
         const user = await User.findById({_id: decoded._id, 'tokens.token': token})
         // const tokenExp = decoded.exp
         // const date=Math.round(new Date().getTime()/1000 )

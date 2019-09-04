@@ -7,7 +7,44 @@ const taskRouter = require('./routers/tasks')
 const envStatus = false
 const app=express()
 const port=process.env.PORT || 443
+// {
+//     lastvisit:null
+//     util
+// }
 
+
+//Uploading Image to server
+//========================================
+const multer = require('multer')
+const upload = multer({
+    dest:'images',
+    limits:{
+        fileSize:1000000
+    },
+    fileFilter(req,file, cb){
+        if(!file.originalname.match(/\.(doc|docx|jpg)$/)){
+            return cb(new Error('Please Upload a word Document!'))
+        }
+        cb(undefined,true)
+        // cb(new Error('File must be '))
+        // cb(undefined,true)
+        // cb(undefined,false)
+
+    }
+})
+
+
+app.post('/upload',upload.single('uploadfile'),(req,res)=>{
+    res.send()
+}, (error, req, res, next)=>{
+    res.status(400).send({error: error.message})
+})
+app.use(express.json())
+app.use(userRouter)
+app.use(taskRouter)
+
+//MASTER SWITCH To Enable and Disable services
+//=================================================
 // app.use((req,res,next)=>{
 
 //     // console.log(req.method, req.path)
@@ -26,10 +63,17 @@ const port=process.env.PORT || 443
 // }
    
 // })
-app.use(express.json())
-app.use(userRouter)
-app.use(taskRouter)
 
+///Adding file update to Express.!!!!
+//=====================================================
+
+
+
+
+
+
+//Password Encryption example using bcyrpt library
+//=====================================================
 // const myfunc=async ()=>{
 //   const pass='mypassword'
 //   const hashpass=await bcrypt.hash(pass,8)
@@ -41,7 +85,8 @@ app.use(taskRouter)
 
 // myfunc()
 
-
+//JWT Token example for generate Json Web token
+//==================================================
 // const jwt = require('jsonwebtoken')
 
 // const myfunc = async()=>{
@@ -53,9 +98,7 @@ app.use(taskRouter)
 // myfunc()
 // //Base64 Json string                            Base64 Encoded (payload/body) contains the id'abcd123'  signature used to verify the token
 // //part1{eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9}.part2{eyJfaWQiOiJhYmNkMTIzIiwiaWF0IjoxNTY1OTYwMzM3fQ}.part3{qh8LZF-AbfT7_AL9QR8kyve_E7bG5xqqwlwaNty6cd4}
-app.listen(port,()=>{
-    console.log('App is running on Port: '+port)
-})
+
 
 // const pet = {
 //     name : 'Hal'
@@ -81,3 +124,7 @@ app.listen(port,()=>{
 // }
 
 // main()
+
+app.listen(port,()=>{
+    console.log('App is running on Port: '+port)
+})

@@ -49,7 +49,10 @@ const userSchema = new mongoose.Schema({
             type: String,
             required: true
         }
-    }]
+    }],
+    avatar:{
+        type:Buffer
+    }
 },{
     timestamps:true
 })
@@ -65,8 +68,8 @@ userSchema.statics.findByCredentials= async(email,password)=>{
     if(!user){
         throw new Error('Unable to login')
     }
-    console.log(email)
-    console.log(password)
+    //console.log(email)
+    //console.log(password)
     const isMatch = await bcrypt.compare(password,user.password)
     if(!isMatch){
         //throw new Error('Unable to login')
@@ -112,7 +115,7 @@ userSchema.methods.toJSON= function (){
     const userObject = user.toObject()
     delete userObject.password
     delete userObject.tokens
-
+    delete userObject.avatar
     return userObject
 }
 
