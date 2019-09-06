@@ -21,7 +21,7 @@ router.post('/users', async (req,res)=>{
     })
 
 router.get('/users',auth ,async (req,res)=>{
- 
+ console.log("inside get")
     // try {
     //   const users= await User.find({})
     //   if (users.length === 0){
@@ -55,19 +55,15 @@ router.post('/users/login',async(req,res)=>{
 // mail.sendDeleteTokenEmail
 router.post('/users/logout',auth ,async (req,res)=>{
   // console.log(req.user.tokens)
-
   // req.user.tokens.filter((token)=>{
   //   console.log(token.token)
   // })
   // console.log(req.token)
   try{
     req.user.tokens = req.user.tokens.filter((token)=>{
-      
       return token.token !== req.token
     })
-    
     await req.user.save()
-    
     res.send()
   }catch(e){
     res.status(500).send()
@@ -83,14 +79,12 @@ router.post('/users/logoutAll',auth, async(req,res)=>{
     res.send()
   }catch(e){
     res.status(500).send()
-
   }
 })
 
 router.get('/users/:id',async (req,res)=>{
     // console.log(req.params)
     const _id=req.params.id
-
     try{
       const user= await User.findById(_id)
       if(!user){
@@ -100,7 +94,6 @@ router.get('/users/:id',async (req,res)=>{
     } catch(e){
         res.status(500).send(e)
     } 
-
     })
 
     router.patch('/users/',auth, async(req,res)=>{
@@ -191,7 +184,6 @@ const upload = multer({
 })
 
 router.post('/users/avatar',auth,upload.single('avatar'),async(req,res)=>{
-
   //req.user.avatar = req.file.buffer
   const buffer = await sharp(req.file.buffer).resize({width:250,height:250}).png().toBuffer()
   req.user.avatar = buffer
@@ -216,16 +208,13 @@ router.get('/users/:id/avatar',async(req,res)=>{
     
   try{
     const user = await User.findById(req.params.id)
-
     if (!user || !user.avatar){
       throw new Error ('')
     }
     res.set('Content-Type','image/png')
     res.send(user.avatar)
-
   }catch(e){
     res.status(404).send()
-
   }
   
 })

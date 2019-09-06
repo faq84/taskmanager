@@ -11,7 +11,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 // })
 
 const sendWelcomeEmail = (email, name)=>{
-    console.log(process.env.SENDGRID_API_KEY)
+    
     sgMail.send({
     to:email,
     from:'faizanaqeel@developer.io',
