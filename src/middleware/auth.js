@@ -5,9 +5,16 @@ const auth  = async (req, res, next)=>{
     // console.log("auth middleware")
     // next()
     try{
+        console.log('inside auth')
         const token = req.header('Authorization').replace('Bearer ', '')
+        console.log(token)
+        console.log(process.env.JWT_SECRET)
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
+        
+        console.log(decoded)
+        console.log('test')
         const user = await User.findById({_id: decoded._id, 'tokens.token': token})
+
         // const tokenExp = decoded.exp
         // const date=Math.round(new Date().getTime()/1000 )
         // const currentSystemDate = new Date().toLocaleString()
