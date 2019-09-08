@@ -21,7 +21,7 @@ router.post('/users', async (req,res)=>{
     })
 
 router.get('/users',auth ,async (req,res)=>{
- console.log("inside get")
+ //console.log("inside get")
     // try {
     //   const users= await User.find({})
     //   if (users.length === 0){
@@ -49,10 +49,7 @@ router.post('/users/login',async(req,res)=>{
     res.status(400).send()
   }
 })
-// mail.sendWelcomeEmail
-// mail.userDeletionEmail
-// mail.userUpdateEmail
-// mail.sendDeleteTokenEmail
+
 router.post('/users/logout',auth ,async (req,res)=>{
   // console.log(req.user.tokens)
   // req.user.tokens.filter((token)=>{
