@@ -10,9 +10,8 @@ const auth  = async (req, res, next)=>{
         console.log(token)
         console.log(process.env.JWT_SECRET)
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
-        
-        console.log(decoded)
-        console.log('test')
+        // console.log(decoded)
+        // console.log('test')
         const user = await User.findById({_id: decoded._id, 'tokens.token': token})
 
         // const tokenExp = decoded.exp

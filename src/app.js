@@ -1,14 +1,13 @@
-const app = require('./app')
+const express = require('express')
+const bcrypt = require('bcryptjs')
+require('./db/mongoose.js')
 
-// const express = require('express')
-// const bcrypt = require('bcryptjs')
-// require('./db/mongoose.js')
+const userRouter = require('./routers/users')
+const taskRouter = require('./routers/tasks')
 
-// const userRouter = require('./routers/users')
-// const taskRouter = require('./routers/tasks')
-// const envStatus = false
-// const app=express()
-const port=process.env.PORT || 443
+const app=express()
+
+
 // {
 //     lastvisit:null
 //     util
@@ -41,9 +40,9 @@ const port=process.env.PORT || 443
 // }, (error, req, res, next)=>{
 //     res.status(400).send({error: error.message})
 // })
-// app.use(express.json())
-// app.use(userRouter)
-// app.use(taskRouter)
+app.use(express.json())
+app.use(userRouter)
+app.use(taskRouter)
 
 //MASTER SWITCH To Enable and Disable services
 //=================================================
@@ -127,6 +126,8 @@ const port=process.env.PORT || 443
 
 // main()
 
-app.listen(port,()=>{
-    console.log('App is running on Port: '+port)
-})
+// app.listen(port,()=>{
+//     console.log('App is running on Port: '+port)
+// })
+
+module.exports=app
